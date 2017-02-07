@@ -31,7 +31,7 @@
 			<a href="#main_wrap" class="scroll_down">Листать вниз, <br>чтобы ничего не упустить</a>
 		</div>
 		<div class="first_screen__right video_wrap">
-			<a href="" class="video_wrap__start">
+			<button class="video_wrap__start" data-video="lPpC9nTEsqs">
 				<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 					 viewBox="0 0 254 296.7" enable-background="new 0 0 254 296.7" xml:space="preserve">
 				<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="4.166667e-002" y1="-16210.958" x2="254.0417" y2="-16210.958" gradientTransform="matrix(1 0 0 -1 0 -16083.917)">
@@ -49,7 +49,7 @@
 				<polygon class="video_wrap__start_arrow" fill="none" stroke="url(#SVGID_2_)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 					88.1,66.7 197.5,129.9 88.1,193 "/>
 				</svg>
-			</a>
+			</button>
 		</div>
 	</section>
 
@@ -99,9 +99,10 @@
 		<div class="min_wrapper">
 			<div class="form_wrapper">
 				<h2 class="section_header form_header">Узнайте о запуске сервиса первым</h2>
-				<div class="form_action">Первым 10 клиентам стальная <br>входная дверь в подарок</div>
-				<div class="form">
-					<form>
+				
+				<div class="form" >
+					<form action="/" onsubmit="return sendForm(this)">
+						<div class="form_action">Первым 10 клиентам стальная <br>входная дверь в подарок</div>
 						<label class="form_field">
 							<input type="text">
 							<span class="form_field__label">Имя и фамилия*</span>
@@ -119,6 +120,8 @@
 						<div class="help_required">* Обязательные для заполнения поля</div>
 						<a href="#" class="help_link">Политика конфиденциальности</a>
 					</form>
+
+					<div class="form_callback"></div>
 				</div>
 			</div>
 		</div>
@@ -212,10 +215,9 @@
 		</div>
 	</footer>
 
-	<button class="scrollTop">Наверх</button>
+	<button class="scrollTop"></button>
 
 	<div class="modal">
-		<div class="modal_overlay"></div>
 		<button class="modal_close"></button>
 		<div class="modal_content"></div>
 	</div>
