@@ -90,8 +90,8 @@ var carousel = function(i) {
 	this.obj = document.getElementsByClassName(i)[0],
 	objList = this.obj.getElementsByClassName('carousel_list')[0],
 	objItems = this.obj.getElementsByClassName('carousel_item'),
-	leftBtn = this.obj.getElementsByClassName('left')[0],
-	rightBtn = this.obj.getElementsByClassName('right')[0],
+	leftBtn = this.obj.getElementsByClassName('left_btn')[0],
+	rightBtn = this.obj.getElementsByClassName('right_btn')[0],
 
 	leftBtn.onclick = this.left.bind(this),
 	rightBtn.onclick = this.right.bind(this);
@@ -108,16 +108,16 @@ carousel.prototype = {
 			firstItem = objItems[0],
 			margin = 960;
 
-		objList.style['left'] = '-'+margin*2+'px',
+		objList.style['left'] = '-980px',
 		objList.insertBefore(lastItem, objList.firstChild),
 		objList.classList.add('animated'),
 		objList.classList.add('left'),
-		objList.style['margin-left'] = '960px',
+		objList.style['margin-left'] = '980px',
 		setTimeout(function () {
-            objList.classList.remove('animated'),
-            objList.classList.remove('left'),
-            objList.style['left'] = '-960px',
-            objList.style['margin-left'] = '0';
+	           objList.classList.remove('animated'),
+	           objList.classList.remove('left'),
+	           objList.style['left'] = '-980px',
+	           objList.style['margin-left'] = '0';
         }, 500);
 
 	},
@@ -133,11 +133,11 @@ carousel.prototype = {
 		objList.classList.add('right'),
 		objList.style['margin-left'] = '-960px';
 		setTimeout(function () {
-            objList.classList.remove('animated'),
-            objList.classList.remove('right'),
-            objList.appendChild(firstItem),
-            objList.style['left'] = '-960px',
-            objList.style['margin-left'] = '0';
+	           objList.classList.remove('animated'),
+	           objList.classList.remove('right'),
+	           objList.appendChild(firstItem),
+	           objList.style['left'] = '-960px',
+	           objList.style['margin-left'] = '0';
         }, 500);
 
 	}

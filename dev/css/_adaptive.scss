@@ -1,4 +1,5 @@
-@media (max-width: 1400px) { 
+@media (max-width: 1400px) 
+{ 
 	.header
 	{
 		padding: 30px 70px;
@@ -17,7 +18,8 @@
 	}
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1200px) 
+{
 	.header
 	{
 		padding: 20px 10px;
@@ -50,8 +52,37 @@
 	}
 }
  
-@media (min-width: 768px) and (max-width: 979px) { }
+@media (min-width: 768px) and (max-width: 999px) 
+{ 
+	.form_wrapper .form { padding: 0 135px 28px;}
+	.footer .contacts_wrap > .contacts_item { margin: 0 0; }
+
+	.scrollTop { bottom: 20px; right: 20px; width: 50px; height: 50px; background-size: 100%;}
+}
  
-@media (max-width: 767px) { }
+@media (max-width: 767px) 
+{ 
+	.form_wrapper > .form_header { max-width: 80%; font-size: 33px;}
+	.form_wrapper .form { padding: 0 75px 28px;}
+	.footer .contacts_wrap > .contacts_item { margin: 0 0 20px; width: 100%; }
+	.scrollTop { bottom: 15px; right: 15px; width: 40px; height: 40px; background-size: 100%;}
+}
  
-@media (max-width: 480px) { }
+@media (max-width: 480px) 
+{ 
+	h2 { font-size: 30px;}
+
+	.carousel_list > .carousel_item > img + .desc { padding: 10px; background-color: rgba(255,255,255,0.7); position: absolute; left: 0; top: 0; z-index: 3;}
+
+	.form_wrapper > .form_header { font-size: 20px; padding: 0 15px; max-width: 80%; top: -30px;}
+	.form .form_field > .form_field__label {  font-size: 15px; left: 5px; padding: 0; top: 6px;}
+	.form input[type="email"], .form input[type="password"], .form input[type="text"], .form textarea { 
+		padding: 5px; 
+
+		&:focus + .form_field__label { top: -1.2em;}
+	}
+	.form_wrapper .form { padding: 0 15px 28px;}
+	.main_sections__items > .row > .col-6 { width: 100%; clear: left;}
+	.footer .contacts_wrap > .contacts_item { margin: 0 0 20px; width: 100%; }
+	.scrollTop { bottom: 10px; right: 10px; width: 30px; height: 30px; background-size: 100%;}
+}
