@@ -1,4 +1,3 @@
-
 var m18 = {
 	anchors: document.querySelectorAll('[href^="#"]'),
 	scrollTopBtn: document.getElementsByClassName('scrollTop')[0],
@@ -9,20 +8,30 @@ var m18 = {
 	modalContent: document.getElementsByClassName('modal_content')[0],
 	modalClose: document.getElementsByClassName('modal_close')[0],
 
-
 	resize: function(){
-		m18.heightOutput.style.height = window.innerHeight+'px';
+		if(window.innerHeight > window.innerWidth){
+		    this.heightOutput.classList.add('portrait');
+			this.heightOutput.classList.remove('landscape');
+		} else {
+			this.heightOutput.classList.add('landscape');
+			this.heightOutput.classList.remove('portrait');
+		}
+
+		this.heightOutput.style.height = window.innerHeight+'px';
 	},
 	scroll_to_top: function(e){
 		e.stopImmediatePropagation();
 		e.preventDefault();
+
 		window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+		reflowFixedPositions();
+
 	},
 	scrollTopBtn_hide: function(){
 		if (pageYOffset > 0) {
-			m18.scrollTopBtn.style.display = 'block';
+			this.scrollTopBtn.style.display = 'block';
 		} else {
-			m18.scrollTopBtn.style.display = 'none';
+			this.scrollTopBtn.style.display = 'none';
 		}
 	},
 	scroll_to_anchor: function(e, elem) {
@@ -41,22 +50,27 @@ var m18 = {
 		});
 	},
 	open_modal: function(){
-		var video_link = this.getAttribute('data-video'),
+		var video_link = this.videoLink.getAttribute('data-video'),
 			iframe = '<iframe width="480" height="360" class="youtube-frame" src="http://www.youtube.com/embed/' + video_link + '?autoplay=1" allowfullscreen="" ></iframe>';
 			
-		m18.modalContent.innerHTML = iframe;
-		m18.modal.style.display = 'block';
+		this.modalContent.innerHTML = iframe;
+		this.modal.style.display = 'block';
 	},
 	close_modal: function(){
-		m18.modal.style.display = 'none';
-		while(m18.modalContent.firstChild) m18.modalContent.removeChild(m18.modalContent.firstChild)
+		this.modal.style.display = 'none';
+		while(this.modalContent.firstChild) this.modalContent.removeChild(this.modalContent.firstChild)
+	},
+	sendForm: function(form) {
+		form.classList.add('ok')
+		return false;
 	},
 	init: function(){
 		this.scrollTopBtn.onclick = this.scroll_to_top; 
-		window.onscroll = this.scrollTopBtn_hide;
-		window.onresize = this.resize; 
-		this.videoLink.onclick = this.open_modal;
-		this.modalClose.onclick = this.close_modal;
+		window.onscroll = this.scrollTopBtn_hide.bind(this);
+		window.onresize = this.resize.bind(this); 
+
+		this.videoLink.onclick = this.open_modal.bind(this);
+		this.modalClose.onclick = this.close_modal.bind(this);
 
 		for(var i = 0; i < this.anchors.length; i++) { 
 			var elem = this.anchors[i];
@@ -71,11 +85,65 @@ var m18 = {
 m18.init();
 
 
+/*------CAROUSEL---------*/
+var carousel = function(i) {
+	this.obj = document.getElementsByClassName(i)[0],
+	objList = this.obj.getElementsByClassName('carousel_list')[0],
+	objItems = this.obj.getElementsByClassName('carousel_item'),
+	leftBtn = this.obj.getElementsByClassName('left')[0],
+	rightBtn = this.obj.getElementsByClassName('right')[0],
 
-sendForm = function(form) {
-	form.classList.add('ok')
-	//alert('sended');
+	leftBtn.onclick = this.left.bind(this),
+	rightBtn.onclick = this.right.bind(this);
+};
 
-	return false;
+carousel.prototype = {
+	scrollSpeed: 200,
+
+	left: function(){
+		var width = this.obj.getElementsByClassName('carousel_item')[0].clientWidth,
+			style = getComputedStyle(objList),
+			left = Number(style.getPropertyValue("left").split('px')[0]),
+			lastItem = objItems[objItems.length-1],
+			firstItem = objItems[0],
+			margin = 960;
+
+		objList.style['left'] = '-'+margin*2+'px',
+		objList.insertBefore(lastItem, objList.firstChild),
+		objList.classList.add('animated'),
+		objList.classList.add('left'),
+		objList.style['margin-left'] = '960px',
+		setTimeout(function () {
+            objList.classList.remove('animated'),
+            objList.classList.remove('left'),
+            objList.style['left'] = '-960px',
+            objList.style['margin-left'] = '0';
+        }, 500);
+
+	},
+	right: function(){
+		var width = this.obj.getElementsByClassName('carousel_item')[0].clientWidth,
+			style = getComputedStyle(objList),
+			left = Number(style.getPropertyValue("left").split('px')[0]),
+			lastItem = objItems[objItems.length-1],
+			firstItem = objItems[0],
+			margin = 960;
+
+		objList.classList.add('animated'),
+		objList.classList.add('right'),
+		objList.style['margin-left'] = '-960px';
+		setTimeout(function () {
+            objList.classList.remove('animated'),
+            objList.classList.remove('right'),
+            objList.appendChild(firstItem),
+            objList.style['left'] = '-960px',
+            objList.style['margin-left'] = '0';
+        }, 500);
+
+	}
 }
+
+carousel = new carousel('carousel');
+
+
 
