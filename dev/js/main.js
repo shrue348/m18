@@ -10,7 +10,7 @@ var m18 = {
 
 	resize: function(){
 		if(window.innerHeight > window.innerWidth){
-		    this.heightOutput.classList.add('portrait');
+			this.heightOutput.classList.add('portrait');
 			this.heightOutput.classList.remove('landscape');
 		} else {
 			this.heightOutput.classList.add('landscape');

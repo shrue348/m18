@@ -414,14 +414,19 @@ h3, .h3 { font-size: 24px; line-height: 1;}
 .first_screen.portrait > .first_screen__right
 {
 	box-sizing: border-box;
-	height: 50%;
 	width: 100%; 
 	float: left;
 	position: relative;
 }
+
 .first_screen.portrait > .first_screen__left
 {
 	text-align: center;
+	height: 65%;
+}
+.first_screen.portrait > .first_screen__right
+{
+	height: 35%;
 }
 
 .first_screen > .first_screen__left
@@ -735,7 +740,7 @@ h3, .h3 { font-size: 24px; line-height: 1;}
 .modal > .modal_close
 {
 	position: absolute;
-	z-index: 1;
+	z-index: 100;
 	top: 40px;
 	right: 40px;
 	width: 100px;
