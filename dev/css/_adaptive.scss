@@ -257,6 +257,10 @@
 		top: -30px;
 	}
 
+	.form .form_field
+	{
+		margin-bottom: 20px;
+	}
 	.form .form_field > .form_field__label 
 	{  
 		font-size: 15px; 
@@ -267,19 +271,31 @@
 
 	.form input[type="email"], .form input[type="password"], .form input[type="text"], .form textarea 
 	{ 
-		padding: 5px; 
+		padding: 7px; 
 
-		&:focus + .form_field__label { top: -1.2em;}
+		&:focus + .form_field__label, &.not_empty + .form_field__label
+		{ 
+			top: -1.2em;
+		}
 	}
 
 	.form_wrapper .form_action
 	{
 		font-size: 13px;
+		margin-bottom: 20px;
 	}
 
 	.form_wrapper .form 
 	{ 
 		padding: 0 15px 28px;
+	}
+
+	.form_wrapper .form button[type="submit"]
+	{ 
+		height: 30px; 
+		line-height: 30px;
+		min-width: auto;
+		padding: 0 25px;
 	}
 
 	.main_sections__items > .row > .col-6 
@@ -318,7 +334,26 @@
   {
 	.header 
 	{ 
-		padding: 5px 20px;
+		padding: 5px 20px 0 10px ;
+	}
+	.header > .logo
+	{
+		width: 150px;
+		height: 40px;
+	}
+	.header > .nav
+	{
+		margin-top: 8px;
+	}
+	.header > .nav .contacts_link
+	{
+		font-size: 16px;
+	
+		&:before
+		{
+			width: 18px;
+			left: -24px;
+		}
 	}
 	.first_screen > .first_screen__left > .first_screen__left_wrap > .page_header
 	{

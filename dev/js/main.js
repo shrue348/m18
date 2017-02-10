@@ -3,6 +3,7 @@ var m18 = {
 	scrollTopBtn: document.getElementsByClassName('scrollTop')[0],
 	heightOutput: document.getElementsByClassName('first_screen')[0],
 	form: document.getElementsByTagName("form")[0],
+	inputs: document.getElementsByTagName("input"),
 	videoLink: document.getElementsByClassName('video_wrap__start')[0],
 	modal: document.getElementsByClassName('modal')[0],
 	modalContent: document.getElementsByClassName('modal_content')[0],
@@ -24,8 +25,6 @@ var m18 = {
 		e.preventDefault();
 
 		window.scroll({ top: 0, left: 0, behavior: 'smooth' });
-		reflowFixedPositions();
-
 	},
 	scrollTopBtn_hide: function(){
 		if (pageYOffset > 0) {
@@ -42,12 +41,35 @@ var m18 = {
 		e.stopImmediatePropagation();
 		e.preventDefault();
 
-		//targetElem.scrollIntoView({ behavior: 'smooth' });
 		window.scrollTo({
 		    "behavior": "smooth",
 		    "left": 0,
 		    "top": targetPos
 		});
+	},
+
+	scrollTo: function(e) {
+		var target = this.getAttribute('href'),
+			targetId = this.getAttribute('href').split('#')[1],
+			targetElem = document.getElementById(targetId);
+
+		e.stopImmediatePropagation();
+		e.preventDefault();
+
+		function animate(elem,time) {
+		    if( !elem) return;
+		    var to = elem.offsetTop;
+		    var from = window.scrollY;
+		    var start = new Date().getTime(),
+		        timer = setInterval(function() {
+		            var step = Math.min(1,(new Date().getTime()-start)/time);
+		            window.scrollTo(0,(from+step*(to-from-30))+1);
+		            if( step == 1){ clearInterval(timer);};
+		        },5);
+		        window.scrollTo(0,(from+1));
+		    }
+		animate(targetElem,500);
+
 	},
 	open_modal: function(){
 		var video_link = this.videoLink.getAttribute('data-video'),
@@ -60,6 +82,15 @@ var m18 = {
 		this.modal.style.display = 'none';
 		while(this.modalContent.firstChild) this.modalContent.removeChild(this.modalContent.firstChild)
 	},
+	check_input: function(){
+		var value = this.value
+
+		if (value != ''){
+			this.classList.add('not_empty')
+		} else {
+			this.classList.remove('not_empty')
+		}
+	},
 	sendForm: function(form) {
 		form.classList.add('ok')
 		return false;
@@ -67,15 +98,21 @@ var m18 = {
 	init: function(){
 		this.scrollTopBtn.onclick = this.scroll_to_top; 
 		window.onscroll = this.scrollTopBtn_hide.bind(this);
-		window.onresize = this.resize.bind(this); 
+		window.addEventListener("orientationchange", this.resize.bind(this), false);
 
 		this.videoLink.onclick = this.open_modal.bind(this);
 		this.modalClose.onclick = this.close_modal.bind(this);
 
 		for(var i = 0; i < this.anchors.length; i++) { 
-			var elem = this.anchors[i];
+			var elem = this.anchors[i]; //anchors
 
-			elem.onclick = this.scroll_to_anchor;
+			elem.onclick = this.scrollTo;
+		};
+
+		for(var i = 0; i < this.inputs.length; i++) { 
+			var elem = this.inputs[i]; //inputs
+
+			elem.addEventListener("blur", this.check_input);
 		};
 
 		this.scrollTopBtn.style.display = 'none';

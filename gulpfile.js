@@ -12,12 +12,14 @@ var gulp = require('gulp'),
     pngquant = require('imagemin-pngquant'),
     rimraf = require('rimraf'),
     browserSync = require("browser-sync"),
+    ts = require('gulp-typescript'),
     reload = browserSync.reload;
 
 var path = {
     build: { 
         html: 'build/',
         js: 'build/js/',
+        ts: 'build/js/',
         css: 'build/css/',
         img: 'build/img/',
         fonts: 'build/fonts/'
@@ -26,6 +28,7 @@ var path = {
         html: 'dev/*.html',
         favicon: 'dev/*.ico',
         js: 'dev/js/main.js',
+        ts: 'dev/ts/main_test.ts',
         style: 'dev/css/main.scss',
         img: 'dev/img/**/*.*', 
         fonts: 'dev/fonts/**/*.*'
@@ -33,6 +36,7 @@ var path = {
     watch: { 
         html: 'dev/**/*.html',
         js: 'dev/js/**/*.js',
+        ts: 'dev/ts/**/*.ts',
         style: 'dev/css/**/*.scss',
         img: 'dev/img/**/*.*',
         fonts: 'dev/fonts/**/*.*'
@@ -62,6 +66,16 @@ gulp.task('js:build', function () {
         .pipe(uglify()) 
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.build.js)) 
+        .pipe(reload({stream: true})); 
+});
+
+gulp.task('ts:build', function () {
+    gulp.src(path.src.ts) 
+        .pipe(ts({
+            noImplicitAny: true,
+            out: 'output.js'
+        }))
+        .pipe(gulp.dest(path.build.ts)) 
         .pipe(reload({stream: true})); 
 });
 
@@ -101,6 +115,7 @@ gulp.task('favicon:build', function() {
 gulp.task('build', [
     'html:build',
     'js:build',
+    //'ts:build',
     'style:build',
     'image:build',
     'fonts:build',
@@ -116,6 +131,9 @@ gulp.task('watch', function(){
     });
     watch([path.watch.js], function(event, cb) {
         gulp.start('js:build');
+    });
+    watch([path.watch.ts], function(event, cb) {
+        gulp.start('ts:build');
     });
     watch([path.watch.img], function(event, cb) {
         gulp.start('image:build');

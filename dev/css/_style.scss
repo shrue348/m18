@@ -73,6 +73,12 @@ body
 	clear: left; 
 }
 
+a,
+button
+{
+	outline: none;
+}
+
 h1, .h1, h2, .h2, h3, .h3 { color: $black; letter-spacing: -0.85px;}
 h1, .h1 { font-size: 64px; line-height: 1;}
 h2, .h2 { font-size: 40px; line-height: 1;}
@@ -162,12 +168,14 @@ h3, .h3 { font-size: 24px; line-height: 1;}
 	background-color: $white;
 	box-shadow: none;
 
-	&:focus + .form_field__label
+	&:focus + .form_field__label, &.not_empty + .form_field__label
 	{
 		top: -0.6em;
 		color: $orange;
 		cursor: default;
 	}
+
+
 }
 
 .form [type=submit]
