@@ -26,6 +26,8 @@ build/Release
 # Dependency directories
 node_modules
 jspm_packages
+bower_components
+build
 
 # Optional npm cache directory
 .npm
@@ -84,4 +86,3 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-bower_components

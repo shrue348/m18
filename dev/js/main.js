@@ -20,19 +20,7 @@ var m18 = {
 
 		this.heightOutput.style.height = window.innerHeight+'px';
 	},
-	scroll_to_top: function(e){
-		e.stopImmediatePropagation();
-		e.preventDefault();
 
-		window.scroll({ top: 0, left: 0, behavior: 'smooth' });
-	},
-	scrollTopBtn_hide: function(){
-		if (pageYOffset > 0) {
-			this.scrollTopBtn.style.display = 'block';
-		} else {
-			this.scrollTopBtn.style.display = 'none';
-		}
-	},
 	scroll_to_anchor: function(e, elem) {
 		var targetId = this.getAttribute('href').split('#')[1],
 			targetElem = document.getElementById(targetId);
@@ -65,7 +53,7 @@ var m18 = {
 		            var step = Math.min(1,(new Date().getTime()-start)/time);
 		            window.scrollTo(0,(from+step*(to-from-30))+1);
 		            if( step == 1){ clearInterval(timer);};
-		        },5);
+		        },3);
 		        window.scrollTo(0,(from+1));
 		    }
 		animate(targetElem,500);
@@ -96,8 +84,6 @@ var m18 = {
 		return false;
 	},
 	init: function(){
-		this.scrollTopBtn.onclick = this.scroll_to_top; 
-		window.onscroll = this.scrollTopBtn_hide.bind(this);
 		window.addEventListener("orientationchange", this.resize.bind(this), false);
 
 		this.videoLink.onclick = this.open_modal.bind(this);
@@ -115,7 +101,7 @@ var m18 = {
 			elem.addEventListener("blur", this.check_input);
 		};
 
-		this.scrollTopBtn.style.display = 'none';
+	
 		this.resize();
 	}
 };
